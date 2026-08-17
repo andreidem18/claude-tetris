@@ -1,0 +1,42 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        id: triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Analyze GitHub issue #${{ github.event.issue.number }} and:
+
+            1. **Assign labels**: Based on the issue title and body, pick the most relevant labels from this repo's existing labels (bug, enhancement, documentation, question, accessibility, good first issue, help wanted, duplicate, invalid, wontfix). Apply them using `gh issue edit ${{ github.event.issue.number }} --add-label "label-name"`.
+
+            2. **Post analysis comment**: Reply with a clear technical analysis including:
+               - Brief summary of the issue
+               - Which file(s) are likely affected (game.js, index.html, style.css, README.md)
+               - Relevant game architecture areas (board model, piece system, collision detection, rendering, scoring, input handling, etc.)
+               - Specific functions or constants that might need changes (e.g., collide, tryRotate, spawn, draw, COLS, ROWS, BLOCK, etc.)
+               - Possible root cause or implementation approach
+               - Any questions or clarifications needed
+
+            Use `gh issue comment ${{ github.event.issue.number }} --body "..."` to post your analysis.
+
+          claude_args: '--allowedTools "Bash(gh issue edit *),Bash(gh issue comment *)"'
