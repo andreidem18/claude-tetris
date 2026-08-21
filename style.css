@@ -198,7 +198,6 @@ kbd {
 }
 
 #restart-btn {
-  margin-top: 8px;
   background: #7aa2f7;
   color: #0f0f17;
   border: none;
@@ -213,6 +212,111 @@ kbd {
 
 #restart-btn:hover {
   background: #9bbdff;
+}
+
+#restart-btn.hidden {
+  display: none;
+}
+
+/* ---- Menú de pausa ---- */
+.pause-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.pause-menu.hidden {
+  display: none;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-btn {
+  background: #7aa2f7;
+  color: #0f0f17;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+.menu-btn:hover {
+  background: #9bbdff;
+}
+
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #555570;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.menu-controls {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-controls li {
+  font-size: 12px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-controls kbd {
+  background: #22223a;
+  border: 1px solid #3a3a5a;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: inherit;
+  color: #aaa;
+}
+
+.level-selector {
+  background: #22223a;
+  border: 1px solid #3a3a5a;
+  border-radius: 4px;
+  color: #7aa2f7;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.level-selector:hover,
+.level-selector:focus {
+  border-color: #7aa2f7;
+  outline: none;
+  background: #2a2a42;
+}
+
+.level-selector option {
+  background: #1a1a25;
+  color: #7aa2f7;
 }
 
 /* ---- Modo claro ---- */
@@ -269,4 +373,45 @@ body.light-theme #restart-btn {
 
 body.light-theme #restart-btn:hover {
   background: #5c7ceb;
+}
+
+/* ---- Menú de pausa (light theme) ---- */
+body.light-theme .menu-btn {
+  background: #3b5bdb;
+  color: #ffffff;
+}
+
+body.light-theme .menu-btn:hover {
+  background: #5c7ceb;
+}
+
+body.light-theme .menu-label {
+  color: #8888a5;
+}
+
+body.light-theme .menu-controls li {
+  color: #666680;
+}
+
+body.light-theme .menu-controls kbd {
+  background: #e8e8f5;
+  border-color: #c8c8dd;
+  color: #444460;
+}
+
+body.light-theme .level-selector {
+  background: #e8e8f5;
+  border-color: #c8c8dd;
+  color: #3b5bdb;
+}
+
+body.light-theme .level-selector:hover,
+body.light-theme .level-selector:focus {
+  border-color: #3b5bdb;
+  background: #f0f0f8;
+}
+
+body.light-theme .level-selector option {
+  background: #ffffff;
+  color: #3b5bdb;
 }
