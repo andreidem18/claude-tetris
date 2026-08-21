@@ -25,11 +25,18 @@ body.light-theme {
   position: relative;
 }
 
-/* ---- Theme toggle switch ---- */
-.theme-switch {
+/* ---- Controls top (theme & skin) ---- */
+.controls-top {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ---- Theme toggle switch ---- */
+.theme-switch {
   display: inline-block;
   width: 44px;
   height: 24px;
@@ -71,6 +78,31 @@ body.light-theme {
 .theme-switch input:checked + .slider::before {
   transform: translateX(20px);
   background: #3b5bdb;
+}
+
+/* ---- Skin select ---- */
+#skin-select {
+  background: #22223a;
+  color: #e0e0e0;
+  border: 1px solid #3a3a5a;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+#skin-select:hover {
+  background: #2a2a4a;
+  border-color: #4a4a6a;
+}
+
+#skin-select:focus {
+  outline: none;
+  border-color: #7aa2f7;
+  box-shadow: 0 0 8px rgba(122, 162, 247, 0.3);
 }
 
 .game-title {
@@ -269,4 +301,20 @@ body.light-theme #restart-btn {
 
 body.light-theme #restart-btn:hover {
   background: #5c7ceb;
+}
+
+body.light-theme #skin-select {
+  background: #e8e8f5;
+  color: #24243a;
+  border-color: #c8c8dd;
+}
+
+body.light-theme #skin-select:hover {
+  background: #dcdce8;
+  border-color: #b8b8cc;
+}
+
+body.light-theme #skin-select:focus {
+  border-color: #3b5bdb;
+  box-shadow: 0 0 8px rgba(59, 91, 219, 0.3);
 }
