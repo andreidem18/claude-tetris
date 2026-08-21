@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Records</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #0f0f17; color: #e0e0e0; }
+    pre { background: #1a1a25; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    button { padding: 10px; margin: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Test Records System</h1>
+  <button onclick="testRecords()">Run Tests</button>
+  <button onclick="clearStorage()">Clear Storage</button>
+  <button onclick="showStorage()">Show Storage</button>
+  <pre id="output"></pre>
+
+  <script>
+    const RECORDS_KEY = 'tetris-records';
+    const STATS_KEY = 'tetris-stats';
+
+    function log(msg) {
+      const output = document.getElementById('output');
+      output.textContent += msg + '\n';
+    }
+
+    function loadRecords() {
+      const data = localStorage.getItem(RECORDS_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveRecords(records) {
+      localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
+    }
+
+    function addRecord(name, score, lines, level) {
+      const records = loadRecords();
+      records.push({
+        name: name || 'Anónimo',
+        score,
+        lines,
+        level,
+        date: new Date().toLocaleDateString()
+      });
+      records.sort((a, b) => b.score - a.score);
+      const top5 = records.slice(0, 5);
+      saveRecords(top5);
+      return top5;
+    }
+
+    function isTopScore(score) {
+      const records = loadRecords();
+      if (records.length < 5) return true;
+      return score > records[records.length - 1].score;
+    }
+
+    function clearStorage() {
+      localStorage.removeItem(RECORDS_KEY);
+      localStorage.removeItem(STATS_KEY);
+      document.getElementById('output').textContent = '';
+      log('✓ Storage cleared');
+    }
+
+    function showStorage() {
+      log('\n=== Current Storage ===');
+      log('Records: ' + JSON.stringify(loadRecords(), null, 2));
+      const stats = JSON.parse(localStorage.getItem(STATS_KEY) || '{}');
+      log('Stats: ' + JSON.stringify(stats, null, 2));
+    }
+
+    function testRecords() {
+      document.getElementById('output').textContent = '';
+      log('=== TESTS ===\n');
+
+      clearStorage();
+      log('1. Empty records: ' + JSON.stringify(loadRecords()));
+      log('   isTopScore(1000): ' + isTopScore(1000));
+
+      log('\n2. Adding Player1 (score: 1000)...');
+      addRecord('Player1', 1000, 10, 2);
+      log('   Records: ' + JSON.stringify(loadRecords().map(r => r.name + '=' + r.score)));
+
+      log('\n3. Adding Player2 (score: 2000)...');
+      addRecord('Player2', 2000, 20, 3);
+      log('   Records: ' + JSON.stringify(loadRecords().map(r => r.name + '=' + r.score)));
+
+      log('\n4. isTopScore(500): ' + isTopScore(500));
+      log('   isTopScore(1500): ' + isTopScore(1500));
+
+      log('\n5. Adding Player3-6...');
+      addRecord('Player3', 3000, 30, 4);
+      addRecord('Player4', 1500, 15, 2);
+      addRecord('Player5', 2500, 25, 3);
+      addRecord('Player6', 4000, 40, 5);
+
+      log('   Records (should be 5): ' + JSON.stringify(loadRecords().map(r => r.name + '=' + r.score)));
+      log('   Total stored: ' + loadRecords().length);
+
+      log('\n6. isTopScore tests:');
+      log('   isTopScore(500): ' + isTopScore(500) + ' (should be false)');
+      log('   isTopScore(1800): ' + isTopScore(1800) + ' (should be true)');
+      log('   isTopScore(4500): ' + isTopScore(4500) + ' (should be true)');
+
+      showStorage();
+      log('\n✓ Tests completed');
+    }
+  </script>
+</body>
+</html>

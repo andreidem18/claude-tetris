@@ -369,10 +369,18 @@ body.light-theme #save-record-btn {
   color: #888;
 }
 
+#records-table td.rank,
+#modal-records-table td.rank {
+  text-align: center;
+  width: 30px;
+  color: #666;
+}
+
 #records-table td.name,
 #modal-records-table td.name {
   text-align: left;
   color: #e0e0e0;
+  padding-left: 12px;
 }
 
 #records-table td.score,
@@ -380,6 +388,7 @@ body.light-theme #save-record-btn {
   text-align: right;
   color: #ffd54f;
   font-weight: 600;
+  padding-right: 8px;
 }
 
 #records-table tr.is-current td {
@@ -407,6 +416,11 @@ body.light-theme #records-table td,
 body.light-theme #modal-records-table td {
   border-bottom: 1px solid #d5d5e6;
   color: #666680;
+}
+
+body.light-theme #records-table td.rank,
+body.light-theme #modal-records-table td.rank {
+  color: #aaa;
 }
 
 body.light-theme #records-table td.name,
