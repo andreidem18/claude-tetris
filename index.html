@@ -8,10 +8,18 @@
 </head>
 <body>
   <div class="wrapper">
-    <label class="theme-switch" title="Modo claro/oscuro">
-      <input type="checkbox" id="theme-toggle" />
-      <span class="slider"></span>
-    </label>
+    <div class="controls-header">
+      <label class="theme-switch" title="Modo claro/oscuro">
+        <input type="checkbox" id="theme-toggle" />
+        <span class="slider"></span>
+      </label>
+      <select id="skin-select" class="skin-select" title="Cambiar tema visual">
+        <option value="retro">Retro</option>
+        <option value="neon">Neon</option>
+        <option value="pastel">Pastel</option>
+        <option value="pixelart">Pixel Art</option>
+      </select>
+    </div>
     <h1 class="game-title">TETRIS</h1>
     <div class="game-container">
       <canvas id="board" width="300" height="600"></canvas>
