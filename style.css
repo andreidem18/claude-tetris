@@ -215,6 +215,107 @@ kbd {
   background: #9bbdff;
 }
 
+/* ---- Pause Menu ---- */
+.pause-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.pause-menu.hidden {
+  display: none;
+}
+
+.pause-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.menu-btn {
+  background: #7aa2f7;
+  color: #0f0f17;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s;
+  min-width: 120px;
+}
+
+.menu-btn:hover {
+  background: #9bbdff;
+}
+
+.menu-btn:active {
+  background: #6a8fd8;
+}
+
+#start-level {
+  background: #22223a;
+  color: #7aa2f7;
+  border: 1px solid #3a3a5a;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+#start-level:hover {
+  border-color: #555580;
+  background: #2a2a4a;
+}
+
+#start-level:focus {
+  outline: none;
+  border-color: #7aa2f7;
+  background: #2a2a4a;
+}
+
+#start-level label {
+  font-size: 12px;
+  color: #7aa2f7;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.pause-menu-section label {
+  font-size: 12px;
+  color: #7aa2f7;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.pause-controls-list {
+  margin-top: 4px;
+}
+
+.pause-controls-list.hidden {
+  display: none;
+}
+
+.pause-controls-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pause-controls-list li {
+  font-size: 12px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 /* ---- Modo claro ---- */
 body.light-theme .game-title {
   color: #3b5bdb;
@@ -269,4 +370,41 @@ body.light-theme #restart-btn {
 
 body.light-theme #restart-btn:hover {
   background: #5c7ceb;
+}
+
+body.light-theme .menu-btn {
+  background: #3b5bdb;
+  color: #ffffff;
+}
+
+body.light-theme .menu-btn:hover {
+  background: #5c7ceb;
+}
+
+body.light-theme .menu-btn:active {
+  background: #2d4ac4;
+}
+
+body.light-theme #start-level {
+  background: #e8e8f5;
+  color: #3b5bdb;
+  border-color: #c8c8dd;
+}
+
+body.light-theme #start-level:hover {
+  border-color: #b8a8dd;
+  background: #f0f0f8;
+}
+
+body.light-theme #start-level:focus {
+  border-color: #3b5bdb;
+  background: #f0f0f8;
+}
+
+body.light-theme .pause-menu-section label {
+  color: #3b5bdb;
+}
+
+body.light-theme .pause-controls-list li {
+  color: #666680;
 }
