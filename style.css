@@ -13,10 +13,64 @@ body {
   justify-content: center;
   min-height: 100vh;
   user-select: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+body.light-theme {
+  background: #f2f2f8;
+  color: #24243a;
 }
 
 .wrapper {
   position: relative;
+}
+
+/* ---- Theme toggle switch ---- */
+.theme-switch {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-switch .slider {
+  position: absolute;
+  inset: 0;
+  background: #22223a;
+  border: 1px solid #3a3a5a;
+  border-radius: 24px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.theme-switch .slider::before {
+  content: '';
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  top: 3px;
+  background: #7aa2f7;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.theme-switch input:checked + .slider {
+  background: #cfd8f7;
+  border-color: #b8c4ec;
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(20px);
+  background: #3b5bdb;
 }
 
 .game-title {
@@ -159,4 +213,60 @@ kbd {
 
 #restart-btn:hover {
   background: #9bbdff;
+}
+
+/* ---- Modo claro ---- */
+body.light-theme .game-title {
+  color: #3b5bdb;
+  text-shadow: 0 0 20px rgba(59, 91, 219, 0.35);
+}
+
+body.light-theme #board {
+  border-color: #d5d5e6;
+  background: #ffffff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme #next-canvas {
+  border-color: #d5d5e6;
+  background: #ffffff;
+}
+
+body.light-theme .label {
+  color: #8888a5;
+}
+
+body.light-theme .value {
+  color: #3b5bdb;
+}
+
+body.light-theme .controls li {
+  color: #666680;
+}
+
+body.light-theme kbd {
+  background: #e8e8f5;
+  border-color: #c8c8dd;
+  color: #444460;
+}
+
+body.light-theme .overlay {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+body.light-theme #overlay-title {
+  color: #c94a4a;
+}
+
+body.light-theme #overlay-score {
+  color: #3b5bdb;
+}
+
+body.light-theme #restart-btn {
+  background: #3b5bdb;
+  color: #ffffff;
+}
+
+body.light-theme #restart-btn:hover {
+  background: #5c7ceb;
 }
