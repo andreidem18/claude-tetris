@@ -45,6 +45,10 @@
             <li><kbd>P</kbd> pausa</li>
           </ul>
         </div>
+
+        <div class="panel-section">
+          <button id="view-records-btn" class="view-records-btn">Ver Records</button>
+        </div>
       </aside>
     </div>
 
@@ -52,7 +56,33 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
+        <p id="top-indicator"></p>
+        <div id="name-input-container" class="hidden">
+          <input type="text" id="player-name" placeholder="Tu nombre" maxlength="20" />
+          <button id="save-record-btn">Guardar Record</button>
+        </div>
+        <div id="records-table-container" class="hidden">
+          <h3>TOP 5</h3>
+          <table id="records-table">
+            <tbody></tbody>
+          </table>
+          <button id="reset-records-btn">Limpiar Records</button>
+        </div>
         <button id="restart-btn">Reiniciar</button>
+      </div>
+    </div>
+
+    <div id="records-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>TOP RECORDS</h2>
+        <table id="modal-records-table">
+          <tbody></tbody>
+        </table>
+        <div class="modal-stats">
+          <p><strong>Mejor combo:</strong> <span id="best-combo">0</span> líneas</p>
+          <p><strong>Máximo nivel:</strong> <span id="max-level">1</span></p>
+        </div>
+        <button id="close-modal-btn">Cerrar</button>
       </div>
     </div>
   </div>
