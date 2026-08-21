@@ -215,6 +215,92 @@ kbd {
   background: #9bbdff;
 }
 
+.name-input {
+  background: #22223a;
+  border: 1px solid #3a3a5a;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #e0e0e0;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  transition: border-color 0.15s;
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: #7aa2f7;
+  box-shadow: 0 0 8px rgba(122, 162, 247, 0.3);
+}
+
+.submit-name-btn {
+  background: #4dd0e1;
+  color: #0f0f17;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s;
+}
+
+.submit-name-btn:hover {
+  background: #6fe3f0;
+}
+
+.high-score-container {
+  margin: 12px 0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.high-score-list {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.high-score-list th,
+.high-score-list td {
+  padding: 6px 8px;
+  text-align: left;
+  color: #7aa2f7;
+  border-bottom: 1px solid #3a3a5a;
+}
+
+.high-score-list th {
+  color: #4dd0e1;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.high-score-list tr:last-child td {
+  border-bottom: none;
+}
+
+.reset-scores-btn {
+  background: #e57373;
+  color: #0f0f17;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+  transition: background 0.15s;
+}
+
+.reset-scores-btn:hover {
+  background: #ff9999;
+}
+
 /* ---- Modo claro ---- */
 body.light-theme .game-title {
   color: #3b5bdb;
@@ -269,4 +355,43 @@ body.light-theme #restart-btn {
 
 body.light-theme #restart-btn:hover {
   background: #5c7ceb;
+}
+
+body.light-theme .name-input {
+  background: #e8e8f5;
+  border-color: #c8c8dd;
+  color: #24243a;
+}
+
+body.light-theme .name-input:focus {
+  border-color: #3b5bdb;
+  box-shadow: 0 0 8px rgba(59, 91, 219, 0.3);
+}
+
+body.light-theme .submit-name-btn {
+  background: #4dd0e1;
+  color: #0f0f17;
+}
+
+body.light-theme .submit-name-btn:hover {
+  background: #2dd9ed;
+}
+
+body.light-theme .high-score-list th,
+body.light-theme .high-score-list td {
+  color: #3b5bdb;
+  border-bottom-color: #d5d5e6;
+}
+
+body.light-theme .high-score-list th {
+  color: #1abc9c;
+}
+
+body.light-theme .reset-scores-btn {
+  background: #e57373;
+  color: #ffffff;
+}
+
+body.light-theme .reset-scores-btn:hover {
+  background: #c94a4a;
 }

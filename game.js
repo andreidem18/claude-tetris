@@ -40,8 +40,12 @@ const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
 const themeToggle = document.getElementById('theme-toggle');
+const nameInput = document.getElementById('name-input');
+const submitNameBtn = document.getElementById('submit-name-btn');
+const resetScoresBtn = document.getElementById('reset-scores-btn');
+const highScoreTable = document.getElementById('high-score-table');
 
-let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
+let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId, combo, maxLines, highScores;
 
 function createBoard() {
   return Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
@@ -106,10 +110,14 @@ function clearLines() {
   }
   if (cleared) {
     lines += cleared;
+    combo++;
+    if (cleared > maxLines) maxLines = cleared;
     score += (LINE_SCORES[cleared] || 0) * level;
     level = Math.floor(lines / 10) + 1;
     dropInterval = Math.max(100, 1000 - (level - 1) * 90);
     updateHUD();
+  } else {
+    combo = 0;
   }
 }
 
@@ -219,11 +227,79 @@ function drawNext() {
       drawBlock(nextCtx, offX + c, offY + r, shape[r][c], NB);
 }
 
+function loadHighScores() {
+  const saved = localStorage.getItem('tetris-highscores');
+  try {
+    highScores = saved ? JSON.parse(saved) : [];
+    // Validate structure
+    if (!Array.isArray(highScores)) {
+      highScores = [];
+    }
+  } catch (e) {
+    highScores = [];
+    localStorage.removeItem('tetris-highscores');
+  }
+  renderHighScoreTable();
+}
+
+function saveHighScores() {
+  localStorage.setItem('tetris-highscores', JSON.stringify(highScores));
+  renderHighScoreTable();
+}
+
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return String(text).replace(/[&<>"']/g, m => map[m]);
+}
+
+function renderHighScoreTable() {
+  let html = '<table class="high-score-list"><tr><th>Rank</th><th>Name</th><th>Score</th></tr>';
+  for (let i = 0; i < Math.min(5, highScores.length); i++) {
+    const entry = highScores[i];
+    if (typeof entry.name !== 'string' || typeof entry.score !== 'number') continue;
+    const escapedName = escapeHtml(entry.name);
+    html += `<tr><td>${i + 1}</td><td>${escapedName}</td><td>${entry.score.toLocaleString()}</td></tr>`;
+  }
+  html += '</table>';
+  highScoreTable.innerHTML = html;
+}
+
+function checkHighScore() {
+  if (highScores.length < 5 || score > highScores[highScores.length - 1].score) {
+    return true;
+  }
+  return false;
+}
+
+function addHighScore(name) {
+  highScores.push({ name, score, combo, lines: maxLines });
+  highScores.sort((a, b) => b.score - a.score);
+  highScores = highScores.slice(0, 5);
+  saveHighScores();
+}
+
 function endGame() {
   gameOver = true;
   cancelAnimationFrame(animId);
   overlayTitle.textContent = 'GAME OVER';
   overlayScore.textContent = `Puntuación: ${score.toLocaleString()}`;
+
+  if (checkHighScore()) {
+    nameInput.value = '';
+    nameInput.style.display = 'block';
+    submitNameBtn.style.display = 'inline-block';
+    nameInput.focus();
+  } else {
+    nameInput.style.display = 'none';
+    submitNameBtn.style.display = 'none';
+  }
+
   overlay.classList.remove('hidden');
 }
 
@@ -263,6 +339,8 @@ function init() {
   score = 0;
   lines = 0;
   level = 1;
+  combo = 0;
+  maxLines = 0;
   paused = false;
   gameOver = false;
   dropInterval = 1000;
@@ -272,6 +350,8 @@ function init() {
   spawn();
   updateHUD();
   overlay.classList.add('hidden');
+  nameInput.style.display = 'none';
+  submitNameBtn.style.display = 'none';
   cancelAnimationFrame(animId);
   animId = requestAnimationFrame(loop);
 }
@@ -320,5 +400,30 @@ themeToggle.addEventListener('change', () => {
   applyTheme(theme);
 });
 
+submitNameBtn.addEventListener('click', () => {
+  const name = nameInput.value.trim() || 'Anonymous';
+  addHighScore(name);
+  nameInput.style.display = 'none';
+  submitNameBtn.style.display = 'none';
+});
+
+nameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const name = nameInput.value.trim() || 'Anonymous';
+    addHighScore(name);
+    nameInput.style.display = 'none';
+    submitNameBtn.style.display = 'none';
+  }
+});
+
+resetScoresBtn.addEventListener('click', () => {
+  if (confirm('¿Limpiar todas las puntuaciones?')) {
+    highScores = [];
+    localStorage.removeItem('tetris-highscores');
+    renderHighScoreTable();
+  }
+});
+
 init();
 initTheme();
+loadHighScores();
